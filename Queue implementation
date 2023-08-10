@@ -1,79 +1,55 @@
 #include <stdio.h>
-#include<stdlib.h>
-#define MAX 50
-void insert();
-void delete();
-void display();
-int queue_array[MAX];
-int rear=-1;
-int front=-1;
-int main()
+struct node
 {
-int choice;
-while (1)
+int label;
+struct node *next;
+};
+main()
 {
-printf("1.Insert element to queue \n");
-printf("2.Delete element from queue \n");
-printf("3.Display all elements of queue \n");
-printf("4.Quit \n");
+int ch=0;
+int k;
+struct node *h, *temp, *head;
+head = (struct node*) malloc(sizeof(struct node));
+head->next = NULL;
+while(1)
+{
+printf("\n Queue using Linked List \n");
+printf("1->Enqueue ");
+printf("2->Dequeue");
+printf("3->View ");
+printf("4->Exit \n");
 printf("Enter your choice : ");
-scanf("%d", &choice);
-switch(choice)
+scanf("%d", &ch);
+switch(ch)
 {
 case 1:
-insert();
+temp=(struct node *)(malloc(sizeof(struct node)));
+printf("Enter label for new node : ");
+scanf("%d", &temp->label);
+h = head;
+while (h->next != NULL)
+h = h->next;
+h->next = temp;
+temp->next = NULL;
 break;
 case 2:
-delete();
+h = head->next;
+head->next = h->next;
+printf("Node deleted \n");
+free(h);
 break;
 case 3:
-display();
+printf("\n\nHEAD -> ");
+h=head;
+while (h->next!=NULL)
+{
+h = h->next;
+printf("%d -> ",h->label);
+}
+printf("NULL \n");
 break;
 case 4:
-exit(1);
-default:
-printf("Wrong choice \n");
+exit(0);
 }
-}
-}
-void insert()
-{
-int item;
-if(rear == MAX - 1)
-printf("Queue Overflow \n");
-else
-{
-if(front== - 1)
-front = 0;
-printf("Inset the element in queue : ");
-scanf("%d", &item);
-rear = rear + 1;
-queue_array[rear] = item;
-}
-}
-void delete()
-{
-if(front == - 1 || front > rear)
-{
-printf("Queue Underflow \n");
-return;
-}
-else
-{
-printf("Element deleted from queue is : %dn", queue_array[front]);
-front = front + 1;
-}
-}
-void display()
-{
-int i;
-if(front == - 1)
-printf("Queue is empty \n");
-else
-{
-printf("Queue is : \n");
-for(i = front; i <= rear; i++)
-printf("%d ", queue_array[i]);
-printf("\n");
 }
 }
